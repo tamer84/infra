@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - $CODEBUILD_SRC_DIR/$BUILD_DIR/run.sh
+artifacts:
+  files:
+    - '**/*.bin'
+  name: vpp-infra-$CONTEXT-$ENVIRONMENT-plans 
