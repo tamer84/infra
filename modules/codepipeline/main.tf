@@ -86,7 +86,7 @@ resource "aws_codepipeline" "pipeline" {
         FullRepositoryId     = var.source_stage["full_repo_id"]
         BranchName           = var.source_stage["branch_name"]
         OutputArtifactFormat = "CODEBUILD_CLONE_REF"
-        # The "default" workspace is needed for vpp/account_resources
+        # The "default" workspace is needed for mboc-dp/account_resources
         DetectChanges = contains(["dev", "prod", "default"], terraform.workspace) ? true : false
       }
     }

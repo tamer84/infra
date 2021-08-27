@@ -33,7 +33,7 @@ locals {
             "height": 6,
             "properties": {
                 "title" : "${local.alarm_list[index].alarm_name}",
-                "query": " SOURCE 'vpp-cloudtrail-logs' \n| filter %{for eventIndex, content in local.alarm_list[index].event_name_list~} eventName == \"${content}\" %{if(length(local.alarm_list[index].event_name_list) - 1) != eventIndex && length(local.alarm_list[index].event_name_list) != 1} or %{endif} %{endfor} %{for queryIndex, query in local.alarm_list[index].additional_filter_pattern.log_insight_query~} %{if(length(local.alarm_list[index].additional_filter_pattern.log_insight_query) - 1) != queryIndex || queryIndex == 0} and %{endif} ${query} %{endfor} \n| fields @timestamp, @message\n| limit 10",
+                "query": " SOURCE 'mbocdp-cloudtrail-logs' \n| filter %{for eventIndex, content in local.alarm_list[index].event_name_list~} eventName == \"${content}\" %{if(length(local.alarm_list[index].event_name_list) - 1) != eventIndex && length(local.alarm_list[index].event_name_list) != 1} or %{endif} %{endfor} %{for queryIndex, query in local.alarm_list[index].additional_filter_pattern.log_insight_query~} %{if(length(local.alarm_list[index].additional_filter_pattern.log_insight_query) - 1) != queryIndex || queryIndex == 0} and %{endif} ${query} %{endfor} \n| fields @timestamp, @message\n| limit 10",
                 "region": "eu-central-1",
                 "stacked": false,
                 "view": "table"

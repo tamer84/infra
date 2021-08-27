@@ -1,6 +1,6 @@
 # ============ cloudtrail bucket ============
 resource "aws_s3_bucket" "cloudtrail_bucket" {
-  bucket = "vpp-bucket-cloudtrail"
+  bucket = "bucket-cloudtrail"
   acl    = "private"
 
   versioning {
@@ -41,7 +41,7 @@ POLICY
 
 # ============ CICD bucket for account resources ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "vpp-cicd-account-resources"
+  bucket = "cicd-account-resources"
   acl    = "private"
 
   versioning {
@@ -75,7 +75,7 @@ resource "aws_s3_bucket_policy" "cicd_bucket_policy" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "MVI codebuild permissions",
+            "Sid": "Container codebuild permissions",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "${aws_iam_role.cicd_role.arn}"

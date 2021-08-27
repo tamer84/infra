@@ -28,7 +28,7 @@ resource "aws_route_table_association" "private-nat" {
 
 resource "aws_route_table" "private-route" {
   count  = var.subnet_count
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   route {
     cidr_block     = "0.0.0.0/0"
@@ -40,14 +40,6 @@ resource "aws_route_table" "private-route" {
     content {
       cidr_block         = route.value
       transit_gateway_id = data.terraform_remote_state.account_resources.outputs.mbio_transit_gateway.id
-    }
-  }
-
-  dynamic "route" {
-    for_each = var.daimler_subnet
-    content {
-      cidr_block         = route.value
-      transit_gateway_id = data.terraform_remote_state.account_resources.outputs.dag_transit_gateway.id
     }
   }
 

@@ -3,7 +3,7 @@
 ![](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiNUtKT1JZRWtucFBLWVlVQ053L09ON0tIVmZQQ0FKUXRQcjFxU2hSUjZiVThkZXVmQ2tWWEVmRTdQUXNpVGtJOExrR1p4L0ZaWVNpdzZIMGZJcHY4SlRVPSIsIml2UGFyYW1ldGVyU3BlYyI6ImpEUFA3TGhGbHNNaVdxY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=develop)
 
 ## What is here?
-This repository holds the AWS Infrastructure as Code for VPP.
+This repository holds the AWS Infrastructure as Code for MBOC-DP.
 
 The infrastructure is described using [Terraform](https://www.terraform.io/), the structure is described above:
 
@@ -25,14 +25,3 @@ The infrastructure is described using [Terraform](https://www.terraform.io/), th
   - If you are creating a new environment: `terraform workspace new {env}`
 6. Now you can execute [terraform plan](https://www.terraform.io/docs/commands/plan.html) to check what is the current status of your resources
 7. If that is the case, execute [terraform apply](https://www.terraform.io/docs/commands/apply.html) (carefully, be sure the changes you see in the plan are the ones you really intend to apply)
-
-## Resources
-
-
-### Axonserver 
-
-Axonserver resource is described in [environment_resources/axon.tf](environment_resources/axon.tf).
-
-To access the server (the files below mentioned will only be available after you run `terraform apply`): 
-* Axon uses TLS on both Dashboard and GRPC ends, to access any of those endpoints you need to have the certificate which is output at [environment_resources/output/axonserver_cert.pem](environment_resources/output/axonserver_cert.pem)
-* Also the server can be accessed via SSH, the key is also exposed in the output folder ([environment_resources/output/axonserver_key.pem](modules/ec2/output/dev/axonserver_key.pem)) (`ssh -i modules/ec2/output/dev/axonserver_key.pem ubuntu@axon.dev.vpp.mercedes-benz.io`)

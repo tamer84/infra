@@ -7,4 +7,4 @@ phases:
 artifacts:
   files:
     - '**/*.bin'
-  name: vpp-infra-$CONTEXT-$ENVIRONMENT-plans 
+  name: infra-$CONTEXT-$ENVIRONMENT-plans

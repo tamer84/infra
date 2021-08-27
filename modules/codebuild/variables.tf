@@ -11,7 +11,7 @@ variable "cicd_branch" {
 variable "github_organisation" {
   description = "Organisation in GitHub where the repository is located"
   type        = string
-  default     = "vpp"
+  default     = "mboc-dp"
 }
 
 variable "github_repository" {

@@ -8,29 +8,29 @@ locals {
   }
 }
 
-resource "aws_vpc" "vpp" {
+resource "aws_vpc" "mbocdp" {
   cidr_block           = local.vpcs_cidr_blocks[terraform.workspace]
   enable_dns_hostnames = true
 
   tags = {
     Terraform   = "true"
     Environment = terraform.workspace
-    Name        = "vpp-${terraform.workspace}"
+    Name        = "mbocdp-${terraform.workspace}"
   }
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   tags = {
-    Name        = "vpp-${terraform.workspace}"
+    Name        = "mbocdp-${terraform.workspace}"
     Terraform   = "true"
     Environment = terraform.workspace
   }
 }
 
 resource "aws_default_route_table" "default" {
-  default_route_table_id = aws_vpc.vpp.default_route_table_id
+  default_route_table_id = aws_vpc.mbocdp.default_route_table_id
 
   dynamic "route" {
     for_each = var.mbio_subnet
@@ -61,18 +61,6 @@ resource "aws_default_route_table" "default" {
 }
 
 
-resource "aws_cognito_user_pool_client" "lb_client" {
-  name                                 = "lb-client-${terraform.workspace}"
-  user_pool_id                         = data.terraform_remote_state.account_resources.outputs.user_pool.id
-  generate_secret                      = true
-  allowed_oauth_flows                  = ["code"]
-  allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_scopes                 = ["email", "openid", "profile", "aws.cognito.signin.user.admin"]
-  callback_urls                        = ["https://${terraform.workspace}.vpp.mercedes-benz.io/oauth2/idpresponse"]
-  supported_identity_providers         = ["COGNITO"]
-  explicit_auth_flows                  = ["ADMIN_NO_SRP_AUTH"]
-}
-
 resource "aws_cloudwatch_log_group" "vpc_flow_log" {
   name = "vpc_flow_log-${terraform.workspace}"
   tags = {
@@ -85,7 +73,7 @@ resource "aws_flow_log" "vpc_flow_log_cw" {
   iam_role_arn    = data.terraform_remote_state.account_resources.outputs.vpc_flow_log_cloudwatch_access_role.arn
   log_destination = aws_cloudwatch_log_group.vpc_flow_log.arn
   traffic_type    = "ALL"
-  vpc_id          = aws_vpc.vpp.id
+  vpc_id          = aws_vpc.mbocdp.id
 
   tags = {
     Terraform   = "true"

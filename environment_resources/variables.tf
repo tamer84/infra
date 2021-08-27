@@ -1,11 +1,7 @@
+# this is the default ami of the bastion ec2 instance is based on
 variable "default_ami" {
   type    = string
   default = "ami-0cc0a36f626a4fdf5"
-}
-
-variable "slack_url" {
-  type    = string
-  default = "https://hooks.slack.com/services/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"
 }
 
 variable "aws_region" {
@@ -14,11 +10,11 @@ variable "aws_region" {
 }
 
 variable "hosted_zone" {
-  default = "vpp.mercedes-benz.io"
+  default = "mbocdp.mercedes-benz.io"
 }
 
 variable "hosted_zone_com" {
-  default = "vpp.mercedes-benz.com"
+  default = "mbocdp.mercedes-benz.com"
 }
 
 variable "local_output" {

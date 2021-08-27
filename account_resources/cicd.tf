@@ -1,9 +1,15 @@
+####
+# Diogo hard coded this to the DEV VPCs in VPP, as that kicked off the CI/CD.
+# And for MAIN releases it was hardcoded directly to the PROD VPCID / SubnetIDs
+# means if we want to reuse this we should disable the entire module till we run the Env resources once to setup our new DEV.
+# Then we need to update this script with the new environments vpc_id / subnet_ids
+
 # ========================================
 # CICD
 # ========================================
 locals {
-  vpp_infra_branch_develop = "develop"
-  vpp_infra_branch_main    = "main"
+  mbocdp_infra_branch_develop = "develop"
+  mbocdp_infra_branch_main    = "main"
 }
 
 module "cicd_develop" {
@@ -19,9 +25,9 @@ module "cicd_develop" {
 
   codebuild_build_stage = {
     "project_name"        = "infra-account-resources-dev"
-    "github_branch"       = local.vpp_infra_branch_develop
-    "github_organisation" = "vpp"
-    "github_repo"         = "vpp-infra"
+    "github_branch"       = local.mbocdp_infra_branch_develop
+    "github_organisation" = "mboc-dp"
+    "github_repo"         = "infra"
     "github_access_token" = data.external.github_access_token.result["token"]
     "github_certificate"  = "${aws_s3_bucket.cicd_bucket.arn}/${aws_s3_bucket_object.github_cert.id}"
 
@@ -65,9 +71,9 @@ module "cicd_main" {
 
   codebuild_build_stage = {
     "project_name"        = "infra-account-resources-prod"
-    "github_branch"       = local.vpp_infra_branch_main
-    "github_organisation" = "vpp"
-    "github_repo"         = "vpp-infra"
+    "github_branch"       = local.mbocdp_infra_branch_main
+    "github_organisation" = "mboc-dp"
+    "github_repo"         = "infra"
     "github_access_token" = data.external.github_access_token.result["token"]
     "github_certificate"  = "${aws_s3_bucket.cicd_bucket.arn}/${aws_s3_bucket_object.github_cert.id}"
 

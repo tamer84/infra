@@ -15,7 +15,7 @@ resource "aws_security_group" "ssh_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   tags = {
     Name        = "ssh-access-${terraform.workspace}"
@@ -41,7 +41,7 @@ resource "aws_security_group" "elasticsearch_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   tags = {
     Name        = "elasticsearch-access-${terraform.workspace}"
@@ -50,30 +50,6 @@ resource "aws_security_group" "elasticsearch_access" {
   }
 }
 
-resource "aws_security_group" "mongo_access" {
-  name = "mongo_access-${terraform.workspace}"
-  ingress {
-    from_port   = 27017
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  vpc_id = aws_vpc.vpp.id
-
-  tags = {
-    Name        = "mongodb-access-${terraform.workspace}"
-    Terraform   = "true"
-    Environment = terraform.workspace
-  }
-}
 
 resource "aws_security_group" "https_access" {
   name        = "https_access-${terraform.workspace}"
@@ -93,37 +69,10 @@ resource "aws_security_group" "https_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   tags = {
     Name        = "https-access-${terraform.workspace}"
-    Terraform   = "true"
-    Environment = terraform.workspace
-  }
-}
-
-resource "aws_security_group" "aurora_access" {
-  name = "aurora_access-${terraform.workspace}"
-
-  # aurora
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  vpc_id = aws_vpc.vpp.id
-
-  tags = {
-    Name        = "aurora-access-${terraform.workspace}"
     Terraform   = "true"
     Environment = terraform.workspace
   }
@@ -146,7 +95,7 @@ resource "aws_security_group" "internal_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.vpp.id
+  vpc_id = aws_vpc.mbocdp.id
 
   tags = {
     Name        = "internal-access-${terraform.workspace}"

@@ -28,7 +28,7 @@ locals {
 # CodeBuild job to build (and deploy Lambda applications) #
 # ======================================================= #
 module "build_job" {
-  source = "git::ssh://git@git.daimler.com/vpp/vpp-infra.git//modules/codebuild?ref=develop"
+  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codebuild?ref=develop"
 
   project_name     = var.codebuild_build_stage["project_name"]
   service_role_arn = var.codebuild_build_stage["service_role_arn"]
@@ -57,7 +57,7 @@ module "build_job" {
 # CodeBuild job to run the tests #
 # ============================== #
 module "run_tests_job" {
-  source = "git::ssh://git@git.daimler.com/vpp/vpp-infra.git//modules/codebuild?ref=develop"
+  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codebuild?ref=develop"
   count  = var.codebuild_run_tests_stage != null ? 1 : 0
 
   project_name     = var.codebuild_run_tests_stage["project_name"]
@@ -88,7 +88,7 @@ module "run_tests_job" {
 # Declaration of the module that will create the pipeline (and additional pipeline for ECS applications) #
 # ====================================================================================================== #
 module "pipeline" {
-  source = "git::ssh://git@git.daimler.com/vpp/vpp-infra.git//modules/codepipeline?ref=develop"
+  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codepipeline?ref=develop"
 
   application_name = var.pipeline_base_configs["name"]
   bucket_name      = var.pipeline_base_configs["bucket_name"]

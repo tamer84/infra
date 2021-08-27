@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
     encrypt        = "true"
-    bucket         = "vpp-terraform"
+    bucket         = "terraform"
     key            = "account_resources/tfstate.tf"
     region         = "eu-central-1"
-    dynamodb_table = "vpp-terraform"
+    dynamodb_table = "terraform"
   }
 }
 
@@ -23,7 +23,7 @@ provider "null" {}
 
 provider "github" {
   token        = data.external.github_access_token.result["token"]
-  organization = "vpp"
+  organization = "mboc-dp"
   base_url     = "https://git.daimler.com/"
 }
 
