@@ -1,6 +1,6 @@
 # ============ cloudtrail bucket ============
 resource "aws_s3_bucket" "cloudtrail_bucket" {
-  bucket = "bucket-cloudtrail"
+  bucket = "mbocdp-bucket-cloudtrail"
   acl    = "private"
 
   versioning {
