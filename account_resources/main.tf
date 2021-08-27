@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     encrypt        = "true"
-    bucket         = "terraform"
+    bucket         = "mbocdp-terraform"
     key            = "account_resources/tfstate.tf"
     region         = "eu-central-1"
     dynamodb_table = "terraform"

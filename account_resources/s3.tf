@@ -41,7 +41,7 @@ POLICY
 
 # ============ CICD bucket for account resources ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "cicd-account-resources"
+  bucket = "mbocdp-cicd-account-resources"
   acl    = "private"
 
   versioning {
