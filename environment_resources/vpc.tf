@@ -8,29 +8,29 @@ locals {
   }
 }
 
-resource "aws_vpc" "mbocdp" {
+resource "aws_vpc" "kahula" {
   cidr_block           = local.vpcs_cidr_blocks[terraform.workspace]
   enable_dns_hostnames = true
 
   tags = {
     Terraform   = "true"
     Environment = terraform.workspace
-    Name        = "mbocdp-${terraform.workspace}"
+    Name        = "kahula-${terraform.workspace}"
   }
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   tags = {
-    Name        = "mbocdp-${terraform.workspace}"
+    Name        = "kahula-${terraform.workspace}"
     Terraform   = "true"
     Environment = terraform.workspace
   }
 }
 
 resource "aws_default_route_table" "default" {
-  default_route_table_id = aws_vpc.mbocdp.default_route_table_id
+  default_route_table_id = aws_vpc.kahula.default_route_table_id
 
   dynamic "route" {
     for_each = var.mbio_subnet
@@ -73,7 +73,7 @@ resource "aws_flow_log" "vpc_flow_log_cw" {
   iam_role_arn    = data.terraform_remote_state.account_resources.outputs.vpc_flow_log_cloudwatch_access_role.arn
   log_destination = aws_cloudwatch_log_group.vpc_flow_log.arn
   traffic_type    = "ALL"
-  vpc_id          = aws_vpc.mbocdp.id
+  vpc_id          = aws_vpc.kahula.id
 
   tags = {
     Terraform   = "true"

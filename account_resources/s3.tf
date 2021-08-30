@@ -1,6 +1,6 @@
 # ============ cloudtrail bucket ============
 resource "aws_s3_bucket" "cloudtrail_bucket" {
-  bucket = "mbocdp-bucket-cloudtrail"
+  bucket = "kahula-bucket-cloudtrail"
   acl    = "private"
 
   versioning {
@@ -41,7 +41,7 @@ POLICY
 
 # ============ CICD bucket for account resources ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "mbocdp-cicd-account-resources"
+  bucket = "kahula-cicd-account-resources"
   acl    = "private"
 
   versioning {

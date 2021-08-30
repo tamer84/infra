@@ -10,11 +10,11 @@ variable "aws_region" {
 }
 
 variable "hosted_zone" {
-  default = "mbocdp.mercedes-benz.io"
+  default = "kahula.mercedes-benz.io"
 }
 
 variable "hosted_zone_com" {
-  default = "mbocdp.mercedes-benz.com"
+  default = "kahula.mercedes-benz.com"
 }
 
 variable "local_output" {

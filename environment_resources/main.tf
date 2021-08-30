@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     encrypt        = "true"
-    bucket         = "mbocdp-terraform"
+    bucket         = "kahula-terraform"
     key            = "environment_resources/tfstate.tf"
     region         = "eu-central-1"
     dynamodb_table = "terraform"
@@ -22,7 +22,7 @@ data "terraform_remote_state" "account_resources" {
   backend = "s3"
   config = {
     encrypt = "true"
-    bucket  = "mbocdp-terraform"
+    bucket  = "kahula-terraform"
     key     = "account_resources/tfstate.tf"
     region  = "eu-central-1"
   }

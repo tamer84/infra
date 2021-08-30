@@ -8,8 +8,8 @@
 # CICD
 # ========================================
 locals {
-  mbocdp_infra_branch_develop = "develop"
-  mbocdp_infra_branch_main    = "main"
+  kahula_infra_branch_develop = "develop"
+  kahula_infra_branch_main    = "main"
 }
 
 module "cicd_develop" {
@@ -25,7 +25,7 @@ module "cicd_develop" {
 
   codebuild_build_stage = {
     "project_name"        = "infra-account-resources-dev"
-    "github_branch"       = local.mbocdp_infra_branch_develop
+    "github_branch"       = local.kahula_infra_branch_develop
     "github_organisation" = "mboc-dp"
     "github_repo"         = "infra"
     "github_access_token" = data.external.github_access_token.result["token"]
@@ -37,7 +37,7 @@ module "cicd_develop" {
     "subnets_ids"        = ["subnet-025fb16356052b4f9", "subnet-0bea4580d3c50369a"]
     "security_group_ids" = ["sg-0c83ccf0ba0e28fd5"]
 
-    "docker_img_url"                   = "736578946942.dkr.ecr.eu-central-1.amazonaws.com/terraform-build-image-dev"
+    "docker_img_url"                   = "780582450272.dkr.ecr.eu-central-1.amazonaws.com/terraform-build-image-dev"
     "docker_img_tag"                   = "latest"
     "docker_img_pull_credentials_type" = "SERVICE_ROLE"
     "buildspec"                        = "../buildspec.yml"
@@ -71,7 +71,7 @@ module "cicd_main" {
 
   codebuild_build_stage = {
     "project_name"        = "infra-account-resources-prod"
-    "github_branch"       = local.mbocdp_infra_branch_main
+    "github_branch"       = local.kahula_infra_branch_main
     "github_organisation" = "mboc-dp"
     "github_repo"         = "infra"
     "github_access_token" = data.external.github_access_token.result["token"]

@@ -51,7 +51,7 @@ output "github_cert" {
 # VPC
 # ========================================
 output "vpc" {
-  value = aws_vpc.mbocdp
+  value = aws_vpc.kahula
 }
 
 output "api_gateway_vpc_endpoint" {

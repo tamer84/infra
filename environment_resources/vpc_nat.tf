@@ -28,7 +28,7 @@ resource "aws_route_table_association" "private-nat" {
 
 resource "aws_route_table" "private-route" {
   count  = var.subnet_count
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   route {
     cidr_block     = "0.0.0.0/0"

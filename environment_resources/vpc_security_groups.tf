@@ -15,7 +15,7 @@ resource "aws_security_group" "ssh_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   tags = {
     Name        = "ssh-access-${terraform.workspace}"
@@ -41,7 +41,7 @@ resource "aws_security_group" "elasticsearch_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   tags = {
     Name        = "elasticsearch-access-${terraform.workspace}"
@@ -69,7 +69,7 @@ resource "aws_security_group" "https_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   tags = {
     Name        = "https-access-${terraform.workspace}"
@@ -95,7 +95,7 @@ resource "aws_security_group" "internal_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = aws_vpc.mbocdp.id
+  vpc_id = aws_vpc.kahula.id
 
   tags = {
     Name        = "internal-access-${terraform.workspace}"
