@@ -35,13 +35,6 @@ resource "aws_route_table" "private-route" {
     nat_gateway_id = aws_nat_gateway.nat-gw[count.index].id
   }
 
-  dynamic "route" {
-    for_each = var.mbio_subnet
-    content {
-      cidr_block         = route.value
-      transit_gateway_id = data.terraform_remote_state.account_resources.outputs.mbio_transit_gateway.id
-    }
-  }
 
   tags = {
     Name        = "${terraform.workspace}-${count.index}"

@@ -33,9 +33,9 @@ module "cicd_develop" {
 
     "service_role_arn"   = aws_iam_role.cicd_role.arn
     "cicd_bucket_id"     = aws_s3_bucket.cicd_bucket.id
-    "vpc_id"             = "vpc-0ce6264eb20f5e516"
-    "subnets_ids"        = ["subnet-025fb16356052b4f9", "subnet-0bea4580d3c50369a"]
-    "security_group_ids" = ["sg-0c83ccf0ba0e28fd5"]
+    "vpc_id"             = "vpc-067ff55d70bd8cb4b"
+    "subnets_ids"        = ["subnet-013ed6acec33e8d30", "subnet-03fee3012066e2df3"]
+    "security_group_ids" = ["sg-03b0f45b8aa8c0e4b"]
 
     "docker_img_url"                   = "780582450272.dkr.ecr.eu-central-1.amazonaws.com/terraform-build-image-dev"
     "docker_img_tag"                   = "latest"

@@ -1,23 +1,8 @@
-resource "aws_s3_bucket" "resources" {
-  bucket = "resources-${terraform.workspace}"
-  acl    = "private"
 
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["GET", "HEAD"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-
-  tags = {
-    Name = "resources-${terraform.workspace}"
-  }
-}
 
 # ============ CICD bucket ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "cicd-${terraform.workspace}"
+  bucket = "kahula-cicd-${terraform.workspace}"
   acl    = "private"
 
   versioning {
@@ -88,16 +73,3 @@ resource "aws_s3_bucket_object" "github_cert" {
   depends_on = [aws_s3_bucket.cicd_bucket]
 }
 
-# ============ VPC Flow Log bucket ============
-resource "aws_s3_bucket" "vpc_flow_log_bucket" {
-  bucket = "vpc-log-${terraform.workspace}"
-  acl    = "private"
-
-  versioning {
-    enabled = true
-  }
-
-  tags = {
-    Terraform = "true"
-  }
-}

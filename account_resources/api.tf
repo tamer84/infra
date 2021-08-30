@@ -6,6 +6,10 @@
 resource "aws_api_gateway_domain_name" "kahula" {
   domain_name              = "api.kahula.mercedes-benz.io"
   regional_certificate_arn  = aws_acm_certificate.kahula.arn
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 }
 
 resource "aws_route53_record" "api" {

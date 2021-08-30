@@ -5,6 +5,7 @@
 # ========================================
 output "api_gateway_domain" {
   value = aws_api_gateway_domain_name.stage-api
+  sensitive = true
 }
 
 # ========================================
@@ -35,9 +36,7 @@ output "events_dlq" {
 # ========================================
 # S3
 # ========================================
-output "resources_bucket" {
-  value = aws_s3_bucket.resources
-}
+
 
 output "cicd_bucket" {
   value = aws_s3_bucket.cicd_bucket
@@ -112,11 +111,4 @@ output "dynamodb_access_role" {
 # ========================================
 output "ec2_instance_profile" {
   value = aws_iam_instance_profile.ec2_instance_profile
-}
-
-# ========================================
-# Glue event catalog
-# ========================================
-output "glue_event_database" {
-  value = aws_glue_catalog_database.events_database
 }

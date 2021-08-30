@@ -55,13 +55,6 @@ output "cicd_role" {
 }
 
 
-# ========================================
-# CloudWatch role
-# ========================================
-output "vpc_flow_log_cloudwatch_access_role" {
-  value = aws_iam_role.vpc_flow_log_cloudwatch_access
-}
-
 
 # ========================================
 # S3

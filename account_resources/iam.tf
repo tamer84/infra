@@ -198,26 +198,6 @@ resource "aws_iam_role_policy" "cicd_role_policy" {
 EOF
 }
 
-# ======= VPC log flow CloudWatch role ================
-resource "aws_iam_role" "vpc_flow_log_cloudwatch_access" {
-  name = "cloudwatch_access"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "vpc-flow-logs.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
 
 resource "aws_iam_policy" "cloudwatch_access_policy" {
   name        = "cloudwatch-access-policy"
@@ -240,11 +220,6 @@ resource "aws_iam_policy" "cloudwatch_access_policy" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "vpc_flow_log_cw_policy_attach" {
-  role       = aws_iam_role.vpc_flow_log_cloudwatch_access.id
-  policy_arn = aws_iam_policy.cloudwatch_access_policy.arn
 }
 
 # ======= Cloudtrail role for CloudWatch access ================
