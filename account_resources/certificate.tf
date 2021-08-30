@@ -53,6 +53,6 @@ resource "aws_acm_certificate_validation" "cert" {
 # Find a certificate that is issued
 data "aws_acm_certificate" "kahula_use1" {
   domain   = "kahula.mercedes-benz.io"
-  statuses = ["PENDING_VALIDATION"]
+  statuses = ["ISSUED"]
 }
 
