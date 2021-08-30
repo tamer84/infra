@@ -1,9 +1,4 @@
-# ========================================
-# CloudWatch & Alarms
-# ========================================
-output "notification_topic_arn" {
-  value = module.vpp_slack_notification.this_slack_topic_arn
-}
+
 
 # ========================================
 # API Gateway
@@ -12,21 +7,10 @@ output "api_gateway_domain" {
   value = aws_api_gateway_domain_name.stage-api
 }
 
-output "api_gateway_domain_com" {
-  value = aws_api_gateway_domain_name.stage-api-com
-}
-
-# ========================================
-# Database
-# ========================================
-output "docdb_parameter_group" {
-  value = aws_docdb_cluster_parameter_group.vpp-docdb
-}
-
 # ========================================
 # DynamoDB
 # ========================================
-output "vppid_mapping_table" {
+output "id_mapping_table" {
   value = aws_dynamodb_table.mapping
 }
 
@@ -45,14 +29,14 @@ output "notifications_bus" {
 # SQS
 # ========================================
 output "events_dlq" {
-  value = aws_sqs_queue.vpp_dlq
+  value = aws_sqs_queue.dlq
 }
 
 # ========================================
 # S3
 # ========================================
 output "resources_bucket" {
-  value = aws_s3_bucket.resouces
+  value = aws_s3_bucket.resources
 }
 
 output "cicd_bucket" {
@@ -67,7 +51,7 @@ output "github_cert" {
 # VPC
 # ========================================
 output "vpc" {
-  value = aws_vpc.vpp
+  value = aws_vpc.kahula
 }
 
 output "api_gateway_vpc_endpoint" {
@@ -97,10 +81,6 @@ output "group_elasticsearch_access" {
   value = aws_security_group.elasticsearch_access
 }
 
-output "group_mongo_access" {
-  value = aws_security_group.mongo_access
-}
-
 output "group_ssh_access" {
   value = aws_security_group.ssh_access
 }
@@ -123,14 +103,6 @@ output "public-subnet" {
 # ========================================
 # IAM
 # ========================================
-output "vpp_user_key_id" {
-  value = aws_iam_access_key.vpp.id
-}
-
-output "vpp_user_key_secret" {
-  value = aws_iam_access_key.vpp.secret
-}
-
 output "dynamodb_access_role" {
   value = aws_iam_role.ecs_role
 }

@@ -90,7 +90,7 @@ resource "aws_lb_listener_rule" "config" {
 # Route53
 resource "aws_route53_record" "route53_record" {
   zone_id = var.zone_id
-  name    = terraform.workspace == "prod" ? "${var.lb_name}.vpp.mercedes-benz.io" : "${var.lb_name}.${terraform.workspace}.vpp.mercedes-benz.io"
+  name    = terraform.workspace == "prod" ? "${var.lb_name}.kahula.mercedes-benz.io" : "${var.lb_name}.${terraform.workspace}.kahula.mercedes-benz.io"
   type    = "A"
 
   alias {

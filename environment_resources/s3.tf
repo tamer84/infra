@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "resouces" {
-  bucket = "vpp-resources-${terraform.workspace}"
+resource "aws_s3_bucket" "resources" {
+  bucket = "resources-${terraform.workspace}"
   acl    = "private"
 
   cors_rule {
@@ -11,13 +11,13 @@ resource "aws_s3_bucket" "resouces" {
   }
 
   tags = {
-    Name = "vpp-resources-${terraform.workspace}"
+    Name = "resources-${terraform.workspace}"
   }
 }
 
 # ============ CICD bucket ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "vpp-cicd-${terraform.workspace}"
+  bucket = "cicd-${terraform.workspace}"
   acl    = "private"
 
   versioning {
@@ -51,7 +51,7 @@ resource "aws_s3_bucket_policy" "cicd_bucket_policy" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "MVI codebuild permissions",
+            "Sid": "Container codebuild permissions",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "${data.terraform_remote_state.account_resources.outputs.cicd_role.arn}"
@@ -90,7 +90,7 @@ resource "aws_s3_bucket_object" "github_cert" {
 
 # ============ VPC Flow Log bucket ============
 resource "aws_s3_bucket" "vpc_flow_log_bucket" {
-  bucket = "vpp-vpc-log-${terraform.workspace}"
+  bucket = "vpc-log-${terraform.workspace}"
   acl    = "private"
 
   versioning {

@@ -1,5 +1,5 @@
 variable "application_name" {
-  description = "Name of the application (e.g. mvi-core-plus)"
+  description = "Name of the application (e.g. aggregator)"
   type        = string
 
 }
@@ -19,7 +19,7 @@ variable "source_stage" {
   type = object({
     name                    = string
     codestar_connection_arn = string # arn:aws:codestar-connections:eu-central-1:736578946942:connection/CONNECTION_ID
-    full_repo_id            = string # vpp/repo_name
+    full_repo_id            = string # mboc-dp/repo_name
     branch_name             = string # repo_branch
   })
 }
@@ -30,7 +30,7 @@ variable "tests_source_stage" {
   type = object({
     name                    = string
     codestar_connection_arn = string # arn:aws:codestar-connections:eu-central-1:736578946942:connection/CONNECTION_ID
-    full_repo_id            = string # vpp/repo_name
+    full_repo_id            = string # mboc-dp/repo_name
     branch_name             = string # repo_branch
   })
 }

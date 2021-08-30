@@ -1,6 +1,6 @@
 locals {
-  event_bus        = "vpp-events-${terraform.workspace}"
-  notification_bus = "vpp-notifications-${terraform.workspace}"
+  event_bus        = "events-${terraform.workspace}"
+  notification_bus = "notifications-${terraform.workspace}"
 }
 
 resource "null_resource" "create_bus" {

@@ -1,5 +1,5 @@
 variable "rule" {
-  description = "Event brigdge rule"
+  description = "Event bridge rule"
   type = object({
     Name         = string
     EventPattern = string

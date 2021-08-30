@@ -304,7 +304,6 @@ resource "aws_cloudwatch_metric_alarm" "alarm" {
 
   alarm_name        = "aws-${local.alarm_list[count.index].alarm_name}"
   alarm_description = local.alarm_list[count.index].alarm_description
-  alarm_actions     = [module.vpp_slack_notification.this_slack_topic_arn]
   metric_name       = local.alarm_list[count.index].metric_filter_name
 
   comparison_operator = local.alarm_comparison_operation
