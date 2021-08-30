@@ -12,11 +12,13 @@ output "github_access_token" {
 # ========================================
 output "api_gateway_domain" {
   value = aws_api_gateway_domain_name.kahula
+  sensitive = true
 }
 
 
 output "aws_api_gateway_key" {
   value = aws_api_gateway_api_key.test-user
+  sensitive = true
 }
 
 
@@ -29,6 +31,7 @@ output "us_east_1_certificate" {
 
 output "certificate" {
   value = aws_acm_certificate.kahula
+  sensitive = true
 }
 
 
