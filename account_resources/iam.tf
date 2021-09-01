@@ -222,6 +222,11 @@ resource "aws_iam_policy" "cloudwatch_access_policy" {
 EOF
 }
 
+resource "aws_iam_service_linked_role" "es" {
+  aws_service_name = "es.amazonaws.com"
+  description      = "Allows Amazon ES to manage AWS resources for a domain on your behalf."
+}
+
 # ======= Cloudtrail role for CloudWatch access ================
 resource "aws_iam_role" "cloudtrail_role" {
   assume_role_policy = <<POLICY
