@@ -6,13 +6,63 @@ locals {
   es_disk_size = 100
 }
 
+resource "aws_cloudwatch_log_group" "es_log_group" {
+  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/application-logs"
+
+  tags = {
+    Terraform   = "true"
+    Environment = terraform.workspace
+  }
+}
+
+resource "aws_cloudwatch_log_resource_policy" "es_log_policy" {
+  policy_name     = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/application-logs"
+  policy_document = <<CONFIG
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "es.amazonaws.com"
+      },
+      "Action": [
+        "logs:PutLogEvents",
+        "logs:PutLogEventsBatch",
+        "logs:CreateLogStream"
+      ],
+      "Resource": "arn:aws:logs:*"
+    }
+  ]
+}
+CONFIG
+}
+
+resource "aws_cloudwatch_log_group" "es_index_log_group" {
+  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/index-logs"
+
+  tags = {
+    Terraform   = "true"
+    Environment = terraform.workspace
+  }
+}
+
+resource "aws_cloudwatch_log_group" "es_search_log_group" {
+  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/search-logs"
+
+  tags = {
+    Terraform   = "true"
+    Environment = terraform.workspace
+  }
+}
+
 resource "aws_elasticsearch_domain" "kahula-es" {
   domain_name           = "kahula-search-${terraform.workspace}"
   elasticsearch_version = "7.10"
 
   vpc_options {
-    security_group_ids = [data.terraform_remote_state.environment_resources.outputs.group_internal_access.id, data.terraform_remote_state.environment_resources.outputs.group_elasticsearch_access.id]
-    subnet_ids         = contains(["int", "prod"], terraform.workspace) ? data.terraform_remote_state.environment_resources.outputs.private-subnet.*.id : [data.terraform_remote_state.environment_resources.outputs.private-subnet[0].id]
+    security_group_ids = [aws_security_group.internal_access.id, aws_security_group.elasticsearch_access.id]
+    subnet_ids         = aws_subnet.private-subnet.*.id
   }
 
   cluster_config {
@@ -73,7 +123,7 @@ CONFIG
   tags = {
     Terraform   = "true"
     Environment = terraform.workspace
-    Name        = "${var.application_name}-${terraform.workspace}"
+    Name        = "infra-${terraform.workspace}"
   }
 }
 
