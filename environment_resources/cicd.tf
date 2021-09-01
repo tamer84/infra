@@ -19,7 +19,7 @@ module "cicd" {
   codebuild_build_stage = {
     "project_name"        = "infra-${terraform.workspace}"
     "github_branch"       = local.infra_branch
-    "github_organisation" = "kahula"
+    "github_organisation" = "mboc-dp"
     "github_repo"         = "infra"
     "github_access_token" = data.terraform_remote_state.account_resources.outputs.github_access_token
     "github_certificate"  = "${aws_s3_bucket.cicd_bucket.arn}/${aws_s3_bucket_object.github_cert.id}"
