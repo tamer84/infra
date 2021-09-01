@@ -101,7 +101,8 @@ locals {
 
 
 resource "aws_dynamodb_table" "mapping" {
-  name = "id-mapping-${terraform.workspace}"
+  count          = length(local.categories)
+  name = "${local.categories[count.index]}-id-mapping-${terraform.workspace}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key = "id"
   stream_enabled = false
