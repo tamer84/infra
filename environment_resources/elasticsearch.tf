@@ -62,7 +62,7 @@ resource "aws_elasticsearch_domain" "kahula-es" {
 
   vpc_options {
     security_group_ids = [aws_security_group.internal_access.id, aws_security_group.elasticsearch_access.id]
-    subnet_ids         = aws_subnet.private-subnet.*.id
+    subnet_ids         = contains(["int", "prod"], terraform.workspace) ? aws_subnet.private-subnet.*.id : [aws_subnet.private-subnet[0].id]
   }
 
   cluster_config {
