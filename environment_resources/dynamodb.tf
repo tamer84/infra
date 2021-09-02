@@ -13,6 +13,17 @@ locals {
     "deleted" : "S"
   }
 
+  event_table_attributes = {
+    "unique_id" : "S"
+    "productId" : "S"
+    "market" : "S"
+    "timestamp" : "N"
+    "saga_id" : "S"
+    "event_name" : "S"
+    "domain" : "S"
+    "source" : "S"
+  }
+
   index_attributes = {
     "fin" : {
       "name" : "fin-index",
@@ -78,11 +89,20 @@ locals {
       "non_key_attributes" : []
     }
   }
+  event_index_attributes = {
+    "domain" : { "name" : "domain", "hash_key" : "domain", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "event_name" : { "name" : "event_name", "hash_key" : "event_name", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "market" : { "name" : "market", "hash_key" : "market", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "saga_id" : { "name" : "saga_id", "hash_key" : "saga_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "source" : { "name" : "source", "hash_key" : "source", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "productId" : { "name" : "productId", "hash_key" : "productId", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+  }
 }
 
 
 resource "aws_dynamodb_table" "mapping" {
-  name = "id-mapping-${terraform.workspace}"
+  count          = length(local.categories)
+  name = "${local.categories[count.index]}-id-mapping-${terraform.workspace}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key = "id"
   stream_enabled = false
@@ -120,6 +140,55 @@ resource "aws_dynamodb_table" "mapping" {
 
   tags = {
     Terraform = "true"
+    Environment = terraform.workspace
+  }
+}
+
+# ========================================
+# To store the events index
+# ========================================
+locals {
+  tableName = "kahula-events-${terraform.workspace}"
+  categories = ["con","col","veh"]
+}
+
+resource "aws_dynamodb_table" "events_table" {
+  count          = length(local.categories)
+  name           = "${local.categories[count.index]}-events-${terraform.workspace}"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "unique_id"
+  range_key      = "timestamp"
+  stream_enabled = false
+
+  dynamic "attribute" {
+    for_each = local.event_table_attributes
+    content {
+      name = attribute.key
+      type = attribute.value
+    }
+  }
+
+  dynamic "global_secondary_index" {
+    for_each = local.event_index_attributes
+    content {
+      name               = "${global_secondary_index.value["name"]}-index"
+      hash_key           = global_secondary_index.value["hash_key"]
+      range_key          = global_secondary_index.value["range_key"]
+      projection_type    = global_secondary_index.value["projection_type"]
+      non_key_attributes = global_secondary_index.value["non_key_attributes"]
+    }
+  }
+
+  point_in_time_recovery {
+    enabled = terraform.workspace == "prod" ? true : false
+  }
+
+  timeouts {
+    update = "24h"
+  }
+
+  tags = {
+    Terraform   = "true"
     Environment = terraform.workspace
   }
 }
