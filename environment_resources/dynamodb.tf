@@ -15,10 +15,8 @@ locals {
 
   event_table_attributes = {
     "unique_id" : "S"
-    "market" : "S"
     "product_id" : "S"
     "saga_id" : "S"
-    "event_name" : "S"
     "timestamp" : "N"
   }
 
