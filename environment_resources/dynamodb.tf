@@ -16,7 +16,7 @@ locals {
   event_table_attributes = {
     "unique_id" : "S"
     "market" : "S"
-    "productId" : "S"
+    "product_id" : "S"
     "saga_id" : "S"
     "event_name" : "S"
     "timestamp" : "N"
@@ -89,7 +89,7 @@ locals {
   }
   event_index_attributes = {
     "saga_id" : { "name" : "saga_id", "hash_key" : "saga_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
-    "productId" : { "name" : "product_id", "hash_key" : "product_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "product_id" : { "name" : "product_id", "hash_key" : "product_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
   }
 }
 
