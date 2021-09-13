@@ -15,13 +15,11 @@ locals {
 
   event_table_attributes = {
     "unique_id" : "S"
-    "productId" : "S"
     "market" : "S"
-    "timestamp" : "N"
+    "productId" : "S"
     "saga_id" : "S"
     "event_name" : "S"
-    "domain" : "S"
-    "source" : "S"
+    "timestamp" : "N"
   }
 
   index_attributes = {
@@ -90,19 +88,15 @@ locals {
     }
   }
   event_index_attributes = {
-    "domain" : { "name" : "domain", "hash_key" : "domain", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
-    "event_name" : { "name" : "event_name", "hash_key" : "event_name", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
-    "market" : { "name" : "market", "hash_key" : "market", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
     "saga_id" : { "name" : "saga_id", "hash_key" : "saga_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
-    "source" : { "name" : "source", "hash_key" : "source", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
-    "productId" : { "name" : "productId", "hash_key" : "productId", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
+    "productId" : { "name" : "product_id", "hash_key" : "product_id", "range_key" : "timestamp", "projection_type" : "ALL", "non_key_attributes" : [] }
   }
 }
 
 
-resource "aws_dynamodb_table" "mapping" {
+resource "aws_dynamodb_table" "identity" {
   count          = length(local.categories)
-  name = "${local.categories[count.index]}-id-mapping-${terraform.workspace}"
+  name = "${local.categories[count.index]}-identity-${terraform.workspace}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key = "id"
   stream_enabled = false
@@ -149,7 +143,7 @@ resource "aws_dynamodb_table" "mapping" {
 # ========================================
 locals {
   tableName = "kahula-events-${terraform.workspace}"
-  categories = ["con","col","veh"]
+  categories = ["connect","collect","vehicle"]
 }
 
 resource "aws_dynamodb_table" "events_table" {

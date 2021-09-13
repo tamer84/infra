@@ -11,8 +11,8 @@ output "api_gateway_domain" {
 # ========================================
 # DynamoDB
 # ========================================
-output "id_mapping_table" {
-  value = { for k,v in local.categories: v => aws_dynamodb_table.mapping[k]}
+output "identity_table" {
+  value = { for k,v in local.categories: v => aws_dynamodb_table.identity[k]}
 }
 
 output "event_tables" {
