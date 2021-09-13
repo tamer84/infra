@@ -102,6 +102,13 @@ resource "aws_iam_role" "cicd_role" {
     {
       "Effect": "Allow",
       "Principal": {
+        "Service": "codeartifact.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
         "Service": "events.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
