@@ -8,19 +8,13 @@ variable "cicd_branch" {
   type        = string
 }
 
-variable "github_organisation" {
-  description = "Organisation in GitHub where the repository is located"
-  type        = string
-  default     = "mboc-dp"
-}
-
 variable "github_repository" {
   description = "Name of the project repository in GitHub"
   type        = string
 }
 
 variable "github_access_token" {
-  description = "Personal access token to connect CodeBuild with GitHub Enterprise"
+  description = "Personal access token to connect CodeBuild with GitHub"
   type        = string
 }
 

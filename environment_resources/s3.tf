@@ -2,7 +2,7 @@
 
 # ============ CICD bucket ============
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket = "kahula-cicd-${terraform.workspace}"
+  bucket = "tango-cicd-${terraform.workspace}"
   acl    = "private"
 
   versioning {
@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "cicd_bucket" {
   }
 
   provisioner "local-exec" {
-    command = "echo -n | openssl s_client -connect git.daimler.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > daimler_github_cert.pem"
+    command = "echo -n | openssl s_client -connect github.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > github_cert.pem"
   }
 }
 
@@ -67,8 +67,8 @@ POLICY
 
 resource "aws_s3_bucket_object" "github_cert" {
   bucket = aws_s3_bucket.cicd_bucket.id
-  key    = "daimler_github_cert.pem"
-  source = "daimler_github_cert.pem"
+  key    = "github_cert.pem"
+  source = "github_cert.pem"
 
   depends_on = [aws_s3_bucket.cicd_bucket]
 }

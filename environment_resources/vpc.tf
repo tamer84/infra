@@ -8,29 +8,29 @@ locals {
   }
 }
 
-resource "aws_vpc" "kahula" {
+resource "aws_vpc" "tango" {
   cidr_block           = local.vpcs_cidr_blocks[terraform.workspace]
   enable_dns_hostnames = true
 
   tags = {
     Terraform   = "true"
     Environment = terraform.workspace
-    Name        = "kahula-${terraform.workspace}"
+    Name        = "tango-${terraform.workspace}"
   }
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.kahula.id
+  vpc_id = aws_vpc.tango.id
 
   tags = {
-    Name        = "kahula-${terraform.workspace}"
+    Name        = "tango-${terraform.workspace}"
     Terraform   = "true"
     Environment = terraform.workspace
   }
 }
 
 resource "aws_default_route_table" "default" {
-  default_route_table_id = aws_vpc.kahula.default_route_table_id
+  default_route_table_id = aws_vpc.tango.default_route_table_id
 
   route {
     cidr_block = "0.0.0.0/0"

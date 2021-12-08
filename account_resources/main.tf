@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     encrypt        = "true"
-    bucket         = "kahula-terraform"
+    bucket         = "tango-terraform"
     key            = "account_resources/tfstate.tf"
     region         = "eu-central-1"
     dynamodb_table = "terraform"
@@ -23,8 +23,7 @@ provider "null" {}
 
 provider "github" {
   token        = data.external.github_access_token.result["token"]
-  organization = "mboc-dp"
-  base_url     = "https://git.daimler.com/"
+  base_url     = "https://github.com/tamer84"
 }
 
 data "aws_caller_identity" "current" {}

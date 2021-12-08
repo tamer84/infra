@@ -10,12 +10,9 @@ variable "aws_region" {
 }
 
 variable "hosted_zone" {
-  default = "kahula.mercedes-benz.io"
+  default = "tango.tamerhusnu.com"
 }
 
-variable "hosted_zone_com" {
-  default = "kahula.mercedes-benz.com"
-}
 
 variable "local_output" {
   type    = bool
@@ -43,17 +40,3 @@ variable "subnet_count" {
   default = 2
 }
 
-variable "mbio_subnet" {
-  type = list(string)
-  default = [
-    "10.49.0.0/16",
-    "10.50.0.0/16"
-  ]
-}
-
-variable "daimler_subnet" {
-  type = list(string)
-  default = [
-    "53.0.0.0/8"
-  ]
-}

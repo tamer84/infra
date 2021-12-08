@@ -4,10 +4,8 @@
 locals {
   table_attributes = {
     "id" : "S"
-    "fin" : "S"
     "orderNumber" : "S"
     "externalId" : "S"
-    "vin" : "S"
     "updatedAt" : "N"
     "createdAt" : "N"
     "deleted" : "S"
@@ -21,15 +19,6 @@ locals {
   }
 
   index_attributes = {
-    "fin" : {
-      "name" : "fin-index",
-      "hash_key" : "fin",
-      "range_key" : "",
-      "write_capacity" : 15,
-      "read_capacity" : 15,
-      "projection_type" : "ALL",
-      "non_key_attributes" : []
-    }
     "orderNumber" : {
       "name" : "orderNumber-index",
       "hash_key" : "orderNumber",
@@ -42,15 +31,6 @@ locals {
     "externalId" : {
       "name" : "externalId-index",
       "hash_key" : "externalId",
-      "range_key" : "",
-      "write_capacity" : 15,
-      "read_capacity" : 15,
-      "projection_type" : "ALL",
-      "non_key_attributes" : []
-    }
-    "vin" : {
-      "name" : "vin-index",
-      "hash_key" : "vin",
       "range_key" : "",
       "write_capacity" : 15,
       "read_capacity" : 15,
@@ -140,7 +120,7 @@ resource "aws_dynamodb_table" "identity" {
 # To store the events index
 # ========================================
 locals {
-  tableName = "kahula-events-${terraform.workspace}"
+  tableName = "tango-events-${terraform.workspace}"
   categories = ["connect","collect","vehicle"]
 }
 

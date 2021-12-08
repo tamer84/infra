@@ -4,11 +4,7 @@ variable "aws_region" {
 }
 
 variable "hosted_zone" {
-  default = "kahula.mercedes-benz.io"
-}
-
-variable "hosted_zone_com" {
-  default = "kahula.mercedes-benz.com"
+  default = "tango.tamerhusnu.com"
 }
 
 variable "infra_pipeline_envs" {
@@ -18,14 +14,6 @@ variable "infra_pipeline_envs" {
 variable "session_manager_log_group" {
   type    = string
   default = "/aws/ssm/session_manager"
-}
-
-
-# Keeping this as it is useful for the future
-# Don#t have to go digging
-variable "dag_dns_server" {
-  type    = string
-  default = "53.18.127.10"
 }
 
 variable "subnet_count" {

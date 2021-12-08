@@ -4,7 +4,7 @@ locals {
 
 # ======== Load Balance Service ========
 module "lb" {
-  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/lb?ref=develop"
+  source = "git::ssh://git@github.com/tamer84/infra.git//modules/lb?ref=develop"
 
   lb_security_groups     = var.lb_security_groups
   is_publicly_accessible = var.is_publicly_accessible

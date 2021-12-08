@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "kahula" {
+resource "aws_route53_zone" "tango" {
   name = "${var.hosted_zone}."
 
   tags = {

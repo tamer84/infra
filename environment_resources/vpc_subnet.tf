@@ -46,7 +46,7 @@ locals {
 resource "aws_subnet" "private-subnet" {
   count             = var.subnet_count
   availability_zone = "${var.aws_region}${local.zones[count.index]}"
-  vpc_id            = aws_vpc.kahula.id
+  vpc_id            = aws_vpc.tango.id
   cidr_block        = local.subnets_cidr_blocks[terraform.workspace]["private"][tostring(count.index + 1)]
 
   tags = {
@@ -59,7 +59,7 @@ resource "aws_subnet" "private-subnet" {
 resource "aws_subnet" "public-subnet" {
   count             = var.subnet_count
   availability_zone = "${var.aws_region}${local.zones[count.index]}"
-  vpc_id            = aws_vpc.kahula.id
+  vpc_id            = aws_vpc.tango.id
   cidr_block        = local.subnets_cidr_blocks[terraform.workspace]["public"][tostring(count.index + 1)]
 
   tags = {

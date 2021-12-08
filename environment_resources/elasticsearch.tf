@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_cloudwatch_log_group" "es_log_group" {
-  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/application-logs"
+  name = "/aws/aes/domains/tango-elastic-${terraform.workspace}/application-logs"
 
   tags = {
     Terraform   = "true"
@@ -16,7 +16,7 @@ resource "aws_cloudwatch_log_group" "es_log_group" {
 }
 
 resource "aws_cloudwatch_log_resource_policy" "es_log_policy" {
-  policy_name     = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/application-logs"
+  policy_name     = "/aws/aes/domains/tango-elastic-${terraform.workspace}/application-logs"
   policy_document = <<CONFIG
 {
   "Version": "2012-10-17",
@@ -39,7 +39,7 @@ CONFIG
 }
 
 resource "aws_cloudwatch_log_group" "es_index_log_group" {
-  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/index-logs"
+  name = "/aws/aes/domains/tango-elastic-${terraform.workspace}/index-logs"
 
   tags = {
     Terraform   = "true"
@@ -48,7 +48,7 @@ resource "aws_cloudwatch_log_group" "es_index_log_group" {
 }
 
 resource "aws_cloudwatch_log_group" "es_search_log_group" {
-  name = "/aws/aes/domains/kahula-elastic-${terraform.workspace}/search-logs"
+  name = "/aws/aes/domains/tango-elastic-${terraform.workspace}/search-logs"
 
   tags = {
     Terraform   = "true"
@@ -56,8 +56,8 @@ resource "aws_cloudwatch_log_group" "es_search_log_group" {
   }
 }
 
-resource "aws_elasticsearch_domain" "kahula-es" {
-  domain_name           = "kahula-search-${terraform.workspace}"
+resource "aws_elasticsearch_domain" "tango-es" {
+  domain_name           = "tango-search-${terraform.workspace}"
   elasticsearch_version = "7.10"
 
   vpc_options {
@@ -66,7 +66,7 @@ resource "aws_elasticsearch_domain" "kahula-es" {
   }
 
   cluster_config {
-    instance_type          = "c6g.xlarge.elasticsearch"
+    instance_type          = "t3.small.search"
     instance_count         = 1
     zone_awareness_enabled = contains(["int", "prod"], terraform.workspace) ? true : false
     zone_awareness_config {
@@ -104,7 +104,7 @@ resource "aws_elasticsearch_domain" "kahula-es" {
         "AWS": "*"
       },
       "Action": "es:*",
-      "Resource": "arn:aws:es:${var.aws_region}:${data.aws_caller_identity.current.account_id}:domain/kahula-search-${terraform.workspace}/*"
+      "Resource": "arn:aws:es:${var.aws_region}:${data.aws_caller_identity.current.account_id}:domain/tango-search-${terraform.workspace}/*"
     }
   ]
 }
@@ -127,8 +127,8 @@ CONFIG
   }
 }
 
-output "kahula_es" {
-  value = aws_elasticsearch_domain.kahula-es
+output "tango_es" {
+  value = aws_elasticsearch_domain.tango-es
 }
 
 output "es_disk_size" {

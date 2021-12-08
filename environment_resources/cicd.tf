@@ -19,14 +19,13 @@ module "cicd" {
   codebuild_build_stage = {
     "project_name"        = "infra-${terraform.workspace}"
     "github_branch"       = local.infra_branch
-    "github_organisation" = "mboc-dp"
     "github_repo"         = "infra"
     "github_access_token" = data.terraform_remote_state.account_resources.outputs.github_access_token
     "github_certificate"  = "${aws_s3_bucket.cicd_bucket.arn}/${aws_s3_bucket_object.github_cert.id}"
 
     "service_role_arn"   = data.terraform_remote_state.account_resources.outputs.cicd_role.arn
     "cicd_bucket_id"     = aws_s3_bucket.cicd_bucket.id
-    "vpc_id"             = aws_vpc.kahula.id
+    "vpc_id"             = aws_vpc.tango.id
     "subnets_ids"        = aws_subnet.private-subnet.*.id
     "security_group_ids" = [aws_security_group.internal_access.id]
 

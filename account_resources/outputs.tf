@@ -11,7 +11,7 @@ output "github_access_token" {
 # API Gateway
 # ========================================
 output "api_gateway_domain" {
-  value = aws_api_gateway_domain_name.kahula
+  value = aws_api_gateway_domain_name.tango
   sensitive = true
 }
 
@@ -26,11 +26,11 @@ output "aws_api_gateway_key" {
 # ACM
 # ========================================
 output "us_east_1_certificate" {
-  value = data.aws_acm_certificate.kahula_use1
+  value = data.aws_acm_certificate.tango_use1
 }
 
 output "certificate" {
-  value = aws_acm_certificate.kahula
+  value = aws_acm_certificate.tango
   sensitive = true
 }
 
@@ -40,7 +40,7 @@ output "certificate" {
 # Route53
 # ========================================
 output "dns" {
-  value = aws_route53_zone.kahula
+  value = aws_route53_zone.tango
 }
 
 # ========================================
@@ -70,6 +70,6 @@ output "github_cert" {
 # ========================================
 # CodeStar Connections
 # ========================================
-output "dag_git_codestar_conn" {
-  value = aws_codestarconnections_connection.daimler_git_conn
+output "git_codestar_conn" {
+  value = aws_codestarconnections_connection.git_conn
 }

@@ -1,6 +1,6 @@
 resource "aws_codebuild_source_credential" "github_access_token" {
   auth_type   = "PERSONAL_ACCESS_TOKEN"
-  server_type = "GITHUB_ENTERPRISE"
+  server_type = "GITHUB"
   token       = var.github_access_token
 
 }
@@ -52,8 +52,8 @@ resource "aws_codebuild_project" "codebuild" {
   }
 
   source {
-    type            = "GITHUB_ENTERPRISE"
-    location        = "https://git.daimler.com/${var.github_organisation}/${var.github_repository}.git"
+    type            = "GITHUB"
+    location        = "https://github.com/${var.github_repository}.git"
     git_clone_depth = 999
     insecure_ssl    = var.insecure_ssl
     buildspec       = var.buildspec_file

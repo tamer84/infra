@@ -3,7 +3,7 @@
 ![](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiNUtKT1JZRWtucFBLWVlVQ053L09ON0tIVmZQQ0FKUXRQcjFxU2hSUjZiVThkZXVmQ2tWWEVmRTdQUXNpVGtJOExrR1p4L0ZaWVNpdzZIMGZJcHY4SlRVPSIsIml2UGFyYW1ldGVyU3BlYyI6ImpEUFA3TGhGbHNNaVdxY0MiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=develop)
 
 ## What is here?
-This repository holds the AWS Infrastructure as Code for MBOC-DP.
+This repository holds the AWS Infrastructure as Code for tango.
 
 The infrastructure is described using [Terraform](https://www.terraform.io/), the structure is described above:
 

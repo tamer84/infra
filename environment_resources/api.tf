@@ -1,7 +1,7 @@
 # --------- IO API ---------
 resource "aws_api_gateway_domain_name" "stage-api" {
   count                    = terraform.workspace == "prod" ? 0 : 1
-  domain_name              = "api.${terraform.workspace}.kahula.mercedes-benz.io"
+  domain_name              = "api.${terraform.workspace}.tango.tamerhusnu.com"
   regional_certificate_arn = data.terraform_remote_state.account_resources.outputs.certificate.arn
 
   endpoint_configuration {

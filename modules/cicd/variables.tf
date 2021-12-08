@@ -3,7 +3,6 @@ variable "codebuild_build_stage" {
   type = object({
     project_name                     = string
     github_branch                    = string
-    github_organisation              = string
     github_repo                      = string
     github_access_token              = string
     github_certificate               = string
@@ -26,7 +25,6 @@ variable "codebuild_run_tests_stage" {
   type = object({
     project_name                     = string
     github_branch                    = string
-    github_organisation              = string
     github_repo                      = string
     github_access_token              = string
     github_certificate               = string

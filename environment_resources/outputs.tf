@@ -54,7 +54,7 @@ output "github_cert" {
 # VPC
 # ========================================
 output "vpc" {
-  value = aws_vpc.kahula
+  value = aws_vpc.tango
 }
 
 output "api_gateway_vpc_endpoint" {

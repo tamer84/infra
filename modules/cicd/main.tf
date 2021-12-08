@@ -2,14 +2,14 @@ locals {
   source_stage = {
     "name"                    = "Source",
     "codestar_connection_arn" = var.codestar_connection_arn,
-    "full_repo_id"            = "${var.codebuild_build_stage["github_organisation"]}/${var.codebuild_build_stage["github_repo"]}",
+    "full_repo_id"            = "/${var.codebuild_build_stage["github_repo"]}",
     "branch_name"             = var.codebuild_build_stage["github_branch"]
   }
 
   tests_source_stage = var.codebuild_run_tests_stage != null ? {
     "name"                    = "TestsSource",
     "codestar_connection_arn" = var.codestar_connection_arn,
-    "full_repo_id"            = "${var.codebuild_run_tests_stage["github_organisation"]}/${var.codebuild_run_tests_stage["github_repo"]}",
+    "full_repo_id"            = "/${var.codebuild_run_tests_stage["github_repo"]}",
     "branch_name"             = var.codebuild_run_tests_stage["github_branch"]
   } : null
 
@@ -28,13 +28,12 @@ locals {
 # CodeBuild job to build (and deploy Lambda applications) #
 # ======================================================= #
 module "build_job" {
-  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codebuild?ref=develop"
+  source = "git::ssh://git@github.com/tamer84/infra.git//modules/codebuild?ref=develop"
 
   project_name     = var.codebuild_build_stage["project_name"]
   service_role_arn = var.codebuild_build_stage["service_role_arn"]
 
   cicd_branch         = var.codebuild_build_stage["github_branch"]
-  github_organisation = var.codebuild_build_stage["github_organisation"]
   github_repository   = var.codebuild_build_stage["github_repo"]
   github_access_token = var.codebuild_build_stage["github_access_token"]
   github_certificate  = var.codebuild_build_stage["github_certificate"]
@@ -57,14 +56,13 @@ module "build_job" {
 # CodeBuild job to run the tests #
 # ============================== #
 module "run_tests_job" {
-  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codebuild?ref=develop"
+  source = "git::ssh://git@github.com/tamer84/infra.git//modules/codebuild?ref=develop"
   count  = var.codebuild_run_tests_stage != null ? 1 : 0
 
   project_name     = var.codebuild_run_tests_stage["project_name"]
   service_role_arn = var.codebuild_run_tests_stage["service_role_arn"]
 
   cicd_branch         = var.codebuild_run_tests_stage["github_branch"]
-  github_organisation = var.codebuild_run_tests_stage["github_organisation"]
   github_repository   = var.codebuild_run_tests_stage["github_repo"]
   github_access_token = var.codebuild_run_tests_stage["github_access_token"]
   github_certificate  = var.codebuild_run_tests_stage["github_certificate"]
@@ -88,7 +86,7 @@ module "run_tests_job" {
 # Declaration of the module that will create the pipeline (and additional pipeline for ECS applications) #
 # ====================================================================================================== #
 module "pipeline" {
-  source = "git::ssh://git@git.daimler.com/mboc-dp/infra.git//modules/codepipeline?ref=develop"
+  source = "git::ssh://git@github.com/tamer84/infra.git//modules/codepipeline?ref=develop"
 
   application_name = var.pipeline_base_configs["name"]
   bucket_name      = var.pipeline_base_configs["bucket_name"]
