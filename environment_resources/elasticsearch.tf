@@ -66,7 +66,7 @@ resource "aws_elasticsearch_domain" "tango-es" {
   }
 
   cluster_config {
-    instance_type          = "t3.small.search"
+    instance_type          = "t3.small.elasticsearch"
     instance_count         = 1
     zone_awareness_enabled = contains(["int", "prod"], terraform.workspace) ? true : false
     zone_awareness_config {

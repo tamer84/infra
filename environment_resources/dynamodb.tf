@@ -121,7 +121,7 @@ resource "aws_dynamodb_table" "identity" {
 # ========================================
 locals {
   tableName = "tango-events-${terraform.workspace}"
-  categories = ["connect","collect","vehicle"]
+  categories = ["product"]
 }
 
 resource "aws_dynamodb_table" "events_table" {

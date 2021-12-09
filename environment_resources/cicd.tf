@@ -8,7 +8,7 @@ locals {
 module "cicd" {
   source = "../modules/cicd"
 
-  codestar_connection_arn = data.terraform_remote_state.account_resources.outputs.dag_git_codestar_conn.arn
+  codestar_connection_arn = data.terraform_remote_state.account_resources.outputs.git_codestar_conn.arn
 
   pipeline_base_configs = {
     "name"        = "infra-${terraform.workspace}"
