@@ -4,7 +4,7 @@ variable "aws_region" {
 }
 
 variable "hosted_zone" {
-  default = "tango.tamerhusnu.com"
+  default = "tango.tamer84.com"
 }
 
 variable "infra_pipeline_envs" {

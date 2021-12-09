@@ -1,8 +1,8 @@
 # --------- DNS API --------
 
 resource "aws_api_gateway_domain_name" "tango" {
-  domain_name              = "api.tango.tamerhusnu.com"
-  regional_certificate_arn  = aws_acm_certificate.tango.arn
+  domain_name              = "api.tamer84.eu"
+  regional_certificate_arn  = data.aws_acm_certificate.tango.arn
 
   endpoint_configuration {
     types = ["REGIONAL"]

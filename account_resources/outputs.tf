@@ -25,15 +25,11 @@ output "aws_api_gateway_key" {
 # ========================================
 # ACM
 # ========================================
-output "us_east_1_certificate" {
-  value = data.aws_acm_certificate.tango_use1
-}
 
 output "certificate" {
-  value = aws_acm_certificate.tango
+  value = data.aws_acm_certificate.tango
   sensitive = true
 }
-
 
 
 # ========================================
